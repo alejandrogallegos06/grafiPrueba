@@ -1,6 +1,14 @@
 import cv2 as cv
+import numpy as np
 
-img = cv.imread("D:\Semestre 5 ISC\Graficación\e5f8636b38d6afc305905ece216443cf")
-cv.imshow('img', img)
-cv.waitKey()
-cv.destroyAllWindows()
+
+img2 = np.ones((400,400), np.uint8)
+
+img = cv.imread('ImagenPrueba.jpg', 0 )
+print(img.shape)
+
+
+cv.imshow('img2', img)
+cv.imshow('img', img2)
+cv.waitKey(0)
+cv.destroyAllWindows(0)

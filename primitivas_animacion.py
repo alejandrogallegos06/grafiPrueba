@@ -16,12 +16,13 @@ cv.ellipse(img, (200, 230), (60, 40), 0, 0, 180, (0, 0, 0), 4)
 
 for i in range (20):
     cv.ellipse(img, (200, 230-i), (60, 40), 0, 0, 180, (0, 0, 0), 4)
-
-
     cv.imshow('Carita', img)
-
     cv.waitKey(70)
 
+for i in range (20):
+    cv.ellipse(img, (200, 275+i), (100, 120), 20, 50, 50, (30, 20, 150), 30)
+    cv.imshow('Carita', img)
+    cv.waitKey(70)
 cv.imshow('Carita', img)
 cv.waitKey(0)
 cv.destroyAllWindows()

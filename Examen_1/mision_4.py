@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-# 1. Cargar la imagen de inteligencia (Asegúrate de la extensión .jpg o .png)
+
 img = cv2.imread('m4_ruido.png')
 
 if img is None:

@@ -13,17 +13,17 @@ img_revelada = np.zeros((alto, ancho), dtype=np.uint8)
        
 for y in range(alto):
     for x in range(ancho):  
-            pixel_original = img[y,x]
-            nuevo_valor = int(pixel_original)*50
-            img_revelada[y,x] = np.clip(nuevo_valor,0,255)
-           
+            pixel_valor = img[y,x]
+            resultado_bruto = int(pixel_valor) + 50 
+
+            valor_final = np.clip(resultado_bruto, 0, 255)
+            img_revelada[y,x] = valor_final
+
 
 cv2.imshow('original', img)
-cv2.imwrite('m1_revelada.png', img_revelada)
+cv2.imshow('m1_revelada.png', img_revelada)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 
 
-# --- MODO OPENCV ---
-# Usa la magia de la vectorización

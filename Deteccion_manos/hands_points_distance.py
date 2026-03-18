@@ -32,6 +32,8 @@ HAND_CONNECTIONS = [
 # Captura de video
 cap = cv2.VideoCapture(0)
 distancia=0
+tamano=0
+radio_cara = 0
 # 2. Inicializar el detector usando un bloque 'with'
 with HandLandmarker.create_from_options(options) as landmarker:
     while cap.isOpened():
@@ -80,16 +82,21 @@ with HandLandmarker.create_from_options(options) as landmarker:
                     
                     # 2. Calcular la longitud de la línea (distancia)
                     distancia = math.hypot(x2 - x1, y2 - y1)
-                    
+                    radio_cara = int(distancia)
+                    tamano = int(distancia/ 3)
+                
                     # 3. Encontrar el punto medio para colocar el texto
                     cx_medio, cy_medio = (x1 + x2) // 2, (y1 + y2) // 2
                     
                     # 4. Mostrar el valor en la pantalla (convertido a entero)
-                    cv2.putText(frame, f"{int(distancia)} px", (cx_medio, cy_medio), 
+                    cv2.putText(frame, f"{tamano} px", (cx_medio, cy_medio), 
                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
 
-        cv2.circle(frame, (200,200), int(distancia), (21,34,234), -1)    
-        cv2.rectangle(frame, (200,200), (50 - int(distancia), 50 - int(distancia)), (50,100,234), -1)          
+        cv2.circle(frame, (200,200), radio_cara, (21,34,234), -1)    
+      # Ojo Izquierdo (Se queda en su lugar)
+        cv2.rectangle(frame, (160, 160), ((160 + tamano), (160 + tamano)), (255, 255, 255), -1)
+        cv2.rectangle(frame, (220, 160), ((220 + tamano), (160 + tamano)), (255, 255, 255), -1)
+      
         # Mostrar la imagen
         cv2.imshow("Salida", frame)
 

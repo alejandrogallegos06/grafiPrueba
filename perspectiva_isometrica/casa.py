@@ -2,55 +2,66 @@ import cv2 as cv
 import numpy as np
 import math
 
-casa = np.ones((400, 400, 3), dtype=np.uint8) * 255
 
+casa = np.ones((500, 500, 3), dtype=np.uint8) * 255
 
 angulo_grados = 30
 angulo_rad = math.radians(angulo_grados)
+profundidad = 120
 
-x1 = 200
-y1 = 400
 
-x2 = int(x1 + 150 * math.cos(angulo_rad))
-y2 = int(y1 - 150 * math.sin(angulo_rad))
+dx = int(profundidad * math.cos(angulo_rad))
+dy = int(profundidad * math.sin(angulo_rad))
 
-# linea de la entrada
-cv.line(casa, (x1, y1), (x2, y2), (30, 100, 0), 5)
 
-# linea de la entrada techo
-cv.line(casa, (200, 250), (x2, 200), (30, 100, 0), 5)
+A = (150, 350)  
+B = (270, 350) 
+C = (270, 230)  
+D = (150, 230)  
+Pico_F = (210, 150) 
 
-# linea del costado izquierdo
-cv.line(casa, (x1, y1), (20,350), (30, 100, 0), 5)
+E = (A[0] + dx, A[1] - dy)
+F = (B[0] + dx, B[1] - dy)
+G = (C[0] + dx, C[1] - dy)
+H = (D[0] + dx, D[1] - dy)
+Pico_T = (Pico_F[0] + dx, Pico_F[1] - dy) 
 
-# linea del costado izquierdo superior
-cv.line(casa, (200, 250), (20,220), (30, 100, 0), 5)
 
-# linea frontal vertical
-cv.line(casa, (x1, y1), (200,250), (30, 100, 0), 5)
+color_pared = (30, 100, 0)       
+color_techo = (0, 155, 200)      
+color_conexion = (100, 100, 100) 
+grosor = 4
 
-# linea frontal vertical esquina izquierda
-cv.line(casa, (20, 350), (20,220), (30, 100, 0), 5)
 
-# linea vertical esquina derecha
-cv.line(casa, (x2, y2), (x2,200), (30, 100, 0), 5)
 
-# linea del techo, costado izquierdo medio 
-cv.line(casa, (170, 320), (10,280), (0, 155, 200), 10)
+# Conexiones de profundidad
+cv.line(casa, A, E, color_conexion, grosor)
+cv.line(casa, B, F, color_conexion, grosor)
+cv.line(casa, C, G, color_conexion, grosor)
+cv.line(casa, D, H, color_conexion, grosor)
 
-# linea del techo, Nivel superior frontal
-cv.line(casa, (170, 320), (230,80), (0, 155, 200), 10)
+# Cara Trasera
+cv.line(casa, E, F, color_pared, grosor)
+cv.line(casa, F, G, color_pared, grosor)
+cv.line(casa, G, H, color_pared, grosor)
+cv.line(casa, H, E, color_pared, grosor)
 
-# linea del techo, Nivel superior trasero
-cv.line(casa, (10, 280), (50,80), (0, 155, 200), 10)
+# Techo Trasero y Línea central del techo 
+cv.line(casa, H, Pico_T, color_techo, grosor)
+cv.line(casa, G, Pico_T, color_techo, grosor)
+cv.line(casa, Pico_F, Pico_T, color_techo, grosor)
 
-# linea del techo, Nivel superior 
-cv.line(casa, (230, 80), (50,80), (0, 155, 200), 10)
+# Cara Frontal 
+cv.line(casa, A, B, color_pared, grosor)
+cv.line(casa, B, C, color_pared, grosor)
+cv.line(casa, C, D, color_pared, grosor)
+cv.line(casa, D, A, color_pared, grosor)
 
-# linea del techo, Nivel superior izquierda 
-cv.line(casa, (230, 80), (350,230), (0, 155, 200), 10)
 
-cv.imshow('casa',casa)
+cv.line(casa, D, Pico_F, color_techo, grosor)
+cv.line(casa, C, Pico_F, color_techo, grosor)
 
+
+cv.imshow('Casa 3D', casa)
 cv.waitKey(0)
 cv.destroyAllWindows()

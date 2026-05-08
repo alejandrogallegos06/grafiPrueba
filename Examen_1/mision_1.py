@@ -14,7 +14,7 @@ img_revelada = np.zeros((alto, ancho), dtype=np.uint8)
 for y in range(alto):
     for x in range(ancho):  
             pixel_valor = img[y,x]
-            resultado_bruto = int(pixel_valor) + 50 
+            resultado_bruto = int(pixel_valor) * 50 
 
             valor_final = np.clip(resultado_bruto, 0, 255)
             img_revelada[y,x] = valor_final
